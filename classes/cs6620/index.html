@@ -1,0 +1,511 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>CS6620: Ray Tracing for Graphics</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="Utah CS6620: ray tracing for graphics." />
+    <link media="screen" rel="stylesheet" href="../../common/colorbox/example1/colorbox.css" />
+    <link href="default.css" rel="stylesheet" type="text/css" />
+    <script>
+        (function(i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function() {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-83300458-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+    <script src="../../common/jquery/jquery-1.4.2.min.js" type="text/javascript"></script>
+    <script src="../../common/colorbox/colorbox/jquery.colorbox-min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            //Examples of how to assign the ColorBox event to elements
+            $("a[rel='colorbox']").colorbox();
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            //Examples of how to assign the ColorBox event to elements
+            $("a[rel='colorbox']").colorbox();
+        });
+    </script>
+    <script src="fsimage.js" type="text/javascript"></script>
+    <style type="text/css">
+        #page {
+            width: 960px;
+            margin: 0 auto;
+            background: #FFFFFF;
+            border: 1px #F0E9D6 solid;
+            padding: 20px 20px;
+        }
+        
+        #header {
+            width: 960px;
+            height: 40px;
+            margin: 0 auto 20px auto;
+            padding-top: 10px;
+            font-size: 24px;
+        }
+        
+        #header a {
+            font-size: 36px;
+        }
+        /* Content */
+        
+        #content {
+            float: left;
+            width: 960px;
+            padding-left: 0px;
+        }
+        
+        #page #content .post table p {
+            font-size: 15px;
+            width: 200px;
+            line-height: 20px;
+        }
+        
+        #page #content .post .gallerytable td {
+            padding: 10px 10px;
+        }
+        
+        #page #content .post #indextable {
+            margin-left: 4px;
+        }
+        
+        #page #content .post #indextable td {
+            padding: 20px 16px;
+        }
+        
+        #page #content .post #indextable p {
+            height: 45px;
+            padding-top: 0px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- start header -->
+    <div id="header">
+        <div id="logo">
+            <h1><a href="http://omnigraphica.com">CS6620: Ray Tracing for Graphics<sup></sup></a></h1>
+            <h2>Laura Lediaev</h2>
+        </div>
+    </div>
+    <!-- end header -->
+    <!-- start page -->
+    <div id="page">
+        <!-- start content -->
+        <div id="content">
+            <div class="post">
+                <h2 class="title"><b>Projects list</b></h2>
+                <div class="entry">
+
+                    <p>In the fall of 2014 I took <a href="http://graphics.cs.utah.edu/courses/cs6620/fall2014/" title="" target="_blank">CS6620 - Ray Tracing for Graphics</a> at the University of Utah. These pages show the results of each homework assignment along with my work for the Utah Teapot Rendering Contest. I have continued to improve my rendering program, and my new images are also shown here. OBJ files of my models can be downloaded at the end of this page.</p>
+
+                    <br />
+
+                    <p style="font-size:32px;">Contest Images</p>
+                    <br />
+                    <p>You can find rendering competition images and descriptions at each entry's individual page. The main website for the contest is found at <a href="http://graphics.cs.utah.edu/trc/" target="_blank">http://graphics.cs.utah.edu/trc/</a>. </p>
+
+
+                    <div style="padding: 10px;">
+                        <!--
+    <video width="940" height="705" preload auto controls poster="contest2016/christmas_teapots_2.jpg">
+        <source src="contest2016/christmas_teapots.mp4" type="video/mp4"/>
+      </video> 
+    -->
+                        <iframe src="https://player.vimeo.com/video/195638429" width="800" height="600" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                        <br /> Visit the 2016 <a href="contest2016.html">page</a> for high-resolution videos and more images.
+                    </div>
+
+
+                    <div style="padding: 10px;">
+                        <img width="940" src="contest2015/teapot_pile_light.jpg" rel="fsimage" title="Dec-16-2015. Pile of teapots. My winning entry for the 2015 rendering contest." /> Visit the 2015 <a href="contest2015.html">page</a>.
+                    </div>
+
+                    <div style="padding: 10px;">
+                        <img width="940" src="utah_teapot_candy_double.jpg" rel="fsimage" title="Dec-2014. Teapots with candy. My winning entry for the 2014 rendering contest." alt="" /> Visit the 2014 <a href="prj14.html">page</a>.
+                    </div>
+
+                    <br />
+                    <br />
+                    <p style="font-size:32px;">New and Improved</p>
+                    <br />
+                    <p>As I continue to improve my raytracer I will be creating new scenes or re-rendering some old scenes. Any new images I create with my renderer will be posted here. </p>
+
+                    <table id="newimprovedtable" class="gallerytable" border="0" cellspacing="0">
+                        <tr>
+                            
+                            <td align="center" style="width:300px;">
+                                <a href="images/diamonds2.jpg" rel="colorbox" title="Jan-1-2017. Diamonds. Rendered with spectral bidirectional path tracing."><img src="images/diamonds2_300.jpg" /></a>
+                            </td>
+
+                            <td align="center" style="width:300px;">
+                                <a href="images/diamonds.jpg" rel="colorbox" title="Dec-31-2016. Diamonds. Rendered with spectral bidirectional path tracing."><img src="images/diamonds_300.jpg" /></a>
+                            </td>
+
+                            <td align="center" style="width:300px;">
+                                <a href="images/seahorse.jpg" rel="colorbox" title="Dec-31-2016. Seahorse. Rendered with spectral path tracing."><img src="images/seahorse_300.jpg" /></a>
+                            </td>
+                            
+                            </tr>
+                        <tr>
+
+                            <td align="center" style="width:300px;">
+                                <a href="images/utah_teapot_marbles_blue.jpg" rel="colorbox" title="Dec-22-2016. Utah teapot with marbles. Path tracing with an environment light."><img src="images/utah_teapot_marbles_blue_300.jpg" /></a>
+                            </td>
+
+                        
+
+                            <td align="center" style="width:300px;">
+                                <a href="images/utah_teapot_marbles_pink.jpg" rel="colorbox" title="Dec-22-2016. Utah teapot with marbles. Path tracing with an environment light."><img src="images/utah_teapot_marbles_pink_300.jpg" /></a>
+                            </td>
+
+                            <td align="center" style="width:300px;">
+                                <a href="contest2016/u_logos.jpg" rel="colorbox" title="Dec-13-2016. Utah teapot with University of Utah logos (7,213 of them)."><img src="contest2016/u_logos_300.jpg" /></a>
+                            </td>
+                            
+                            </tr>
+                        <tr>
+
+                            <td align="center" style="width:300px;">
+                                <a href="contest2016/christmas_teapots_9.jpg" rel="colorbox" title="Dec-13-2016. A frame from my Christmas Teapots movie."><img src="contest2016/christmas_teapots_9_300.jpg" /></a>
+                            </td>
+
+                        
+
+                            <td align="center" style="width:300px;">
+                                <a href="contest2016/christmas_teapots_2.jpg" rel="colorbox" title="Dec-13-2016. A frame from my Christmas Teapots movie."><img src="contest2016/christmas_teapots_2_300.jpg" /></a>
+                            </td>
+
+                            <td align="center" style="width:300px;">
+                                <a href="contest2016/christmas_teapots_3.jpg" rel="colorbox" title="Dec-13-2016. A frame from my Christmas Teapots movie."><img src="contest2016/christmas_teapots_3_300.jpg" /></a>
+                            </td>
+                            
+                            </tr>
+                        <tr>
+
+                            <td align="center" style="width:300px;">
+                                <a href="images/Lucy_blue.jpg" rel="colorbox" title="Oct-29-2016. Lucy. Using BDPT, slight depth of field, and a mesh light. 3,400 spp."><img src="images/Lucy_blue_small.jpg" /></a>
+                            </td>
+
+                        
+
+                            <td align="center" style="width:300px;">
+                                <a href="images/motherchild2.jpg" rel="colorbox" title="Oct-24-2016. Motherchild. Using bidirectional path tracing, and exra samples for difficult paths. 67,000 spp."><img src="images/motherchild2_small.jpg" /></a>
+                            </td>
+
+                            <td align="center" style="width:300px;">
+                                <a href="contest2015/pinetree.jpg" rel="colorbox" title="Dec-9-2015. Pinetree. 28,000 spp."><img src="contest2015/pinetree_small.jpg" /></a>
+                            </td>
+                            
+                            </tr>
+                        <tr>
+
+                            <td align="center" style="width:300px;">
+                                <a href="contest2015/christmas_tree_1000.jpg" rel="colorbox" title="Dec-15-2015. Christmas Tree. My 2nd entry for the 2015 rendering contest. 16,800 spp."><img src="contest2015/christmas_tree_small.jpg" /></a>
+                            </td>
+
+                        
+
+                            <td align="center" style="width:300px;">
+                                <a href="images/bunny_box.jpg" rel="colorbox" title="Oct-1-2015. Stanford bunny. 8,250 spp."><img src="images/bunny_box_small.jpg" /></a>
+                            </td>
+
+                            <td align="center" style="width:300px;">
+                                <a href="images/dragon_box.jpg" rel="colorbox" title="Oct-1-2015. Stanford dragon. 6,075 spp."><img src="images/dragon_box_small.jpg" /></a>
+                            </td>
+                            
+                            </tr>
+                        <tr>
+
+                            <td align="center" style="width:300px;">
+                                <a href="images/rhino.jpg" rel="colorbox" title="Sept-21-2015. Multicolored glass rhinoceros. 10,400 spp."><img src="images/rhino_small.jpg" /></a>
+                            </td>
+
+                        
+
+                            <td align="center" style="width:300px;">
+                                <a href="images/rhino_lightHit.jpg" rel="colorbox" title="Sept-21-2015. Multicolored glass rhinoceros. The caustics and specular layer. 10,400 spp."><img src="images/rhino_lightHit_small.jpg" /></a>
+                            </td>
+
+                            <td align="center" style="width:300px;">
+                                <a href="images/lucy_glossy.jpg" rel="colorbox" title="Sept-21-2015. Lucy the Angel statue. Glossy material. 8,800 spp."><img src="images/lucy_glossy_small.jpg" /></a>
+                            </td>
+                            
+                            </tr>
+                        <tr>
+
+                            <td align="center" style="width:300px;">
+                                <a href="images/lucy.jpg" rel="colorbox" title="Sept-21-2015. Lucy the Angel statue. 4,900 spp."><img src="images/lucy_small.jpg" /></a>
+                            </td>
+
+                        
+
+                            <td align="center" style="width:300px;">
+                                <a href="images/lucy_dark.jpg" rel="colorbox" title="Sept-22-2015. Lucy the Angel statue. Smaller glass absorption distance. 4,475 spp."><img src="images/lucy_dark_small.jpg" /></a>
+                            </td>
+
+                            <td align="center">
+                                <a href="images/motherchild_caustics1.jpg" rel="colorbox" title="Aug-1-2015. Motherchild scene with caustics. Both path tracing and light tracing were used. 8,400 spp."><img src="images/motherchild_caustics1_small.jpg" /></a>
+                            </td>
+                            
+                            </tr>
+                        <tr>
+
+                            <td align="center" style="width:300px;">
+                                <a href="images/rainbow_box.jpg" rel="colorbox" title="Sept-27-2015. A rendering test for 4 (fused) adjacent slabs of glass. 8,000 spp."><img src="images/rainbow_box_small.jpg" /></a>
+                            </td>
+
+                        </tr>
+
+                    </table>
+
+                    <br />
+                    <br />
+                    <p style="font-size:32px;">Select Images from my Class Projects</p>
+                    <br />
+                    <p>Here are my favorite images that I created for the class. </p>
+
+                    <table id="gallerytable" class="gallerytable" border="0" cellspacing="0">
+                        <tr>
+                            <td align="center">
+                                <a href="prj12_box_1200.jpg" rel="colorbox" title=""><img src="photo300/prj12_box.jpg" /></a>
+                            </td>
+
+                            <td align="center">
+                                <a href="prj7_dragon_1200.jpg" rel="colorbox" title=""><img src="photo300/prj7_dragon.jpg" /></a>
+                            </td>
+
+                            <td align="center">
+                                <a href="prj7_tree_1200.jpg" rel="colorbox" title=""><img src="photo300/prj7_tree.jpg" /></a>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td align="center">
+                                <a href="contest_motherchild_environment_1200.jpg" rel="colorbox" title=""><img src="photo300/contest_motherchild_environment.jpg" /></a>
+                            </td>
+
+                            <td align="center">
+                                <a href="prj7_room_1200.jpg" rel="colorbox" title=""><img src="photo300/prj7_room.jpg" /></a>
+                            </td>
+
+                            <td align="center">
+                                <a href="prj6_room_1200.jpg" rel="colorbox" title=""><img src="photo300/prj6_room.jpg" /></a>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td align="center">
+                                <a href="prj11_motherchild.jpg" rel="colorbox" title=""><img src="photo300/prj11_motherchild.jpg" /></a>
+                            </td>
+
+                            <td align="center">
+                                <a href="prj12_wt1.jpg" rel="colorbox" title="Glass teapot."><img src="photo300/prj12_wt1.jpg" /></a>
+                            </td>
+
+                            <td align="center">
+                                <a href="prj11_scene1_s12000_m4.jpg" rel="colorbox" title=""><img src="photo300/prj11_scene1_s12000_m4.jpg" /></a>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td align="center">
+                                <a href="prj10_pencil.jpg" rel="colorbox" title="Pencil in water."><img src="photo300/prj10_pencil.jpg" /></a>
+                            </td>
+
+                            <td align="center">
+                                <a href="prj12_scene2_blinn.jpg" rel="colorbox" title=""><img src="photo300/prj12_scene2_blinn.jpg" /></a>
+                            </td>
+
+                            <td align="center">
+                                <a href="prj11_scene2.jpg" rel="colorbox" title=""><img src="photo300/prj11_scene2.jpg" /></a>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td align="center">
+                                <a href="prj9_scene2b.jpg" rel="colorbox" title="Depth of field."><img src="photo300/prj9_scene2b.jpg" /></a>
+                            </td>
+
+                            <td align="center">
+                                <a href="new_spheres1.jpg" rel="colorbox" title="Overlapping spheres."><img src="photo300/new_spheres1.jpg" /></a>
+                            </td>
+
+                            <td align="center">
+                                <a href="prj5_room.jpg" rel="colorbox" title=""><img src="photo300/prj5_room.jpg" /></a>
+                            </td>
+                        </tr>
+                    </table>
+
+
+                    <br />
+                    <br />
+                    <p style="font-size:32px;">Project Pages</p>
+
+                    <table id="indextable" border="0">
+                        <tr>
+                            <td align="left" width="300">
+                                <p>Project 1: ray casting</p>
+                                <a href="prj1.html" title="" target="_blank"><img src="prj1.jpg" alt="" style="border:3px solid #000000" /></a>
+                            </td>
+
+                            <td align="left" width="300">
+                                <p>Project 2: shading</p>
+                                <a href="prj2.html" title="" target="_blank"><img src="prj2.jpg" alt="" style="border:3px solid #000000" /></a>
+                            </td>
+
+                            <td align="left" width="300">
+                                <p>Project 3: shadows</p>
+                                <a href="prj3.html" title="" target="_blank"><img src="prj3.jpg" alt="" style="border:3px solid #000000" /></a>
+                            </td>
+
+                            <td align="left">
+                                <p>Project 4: reflections and refractions</p>
+                                <a href="prj4.html" title="" target="_blank"><img src="prj4.jpg" alt="" style="border:3px solid #000000" /></a>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td align="left">
+                                <p>Project 5: triangular meshes</p>
+                                <a href="prj5.html" title="" target="_blank"><img src="prj5.jpg" alt="" style="border:3px solid #000000" /></a>
+                            </td>
+
+                            <td align="left">
+                                <p>Project 6: space partitioning</p>
+                                <a href="prj6.html" title="" target="_blank"><img src="prj6.jpg" alt="" style="border:3px solid #000000" /></a>
+                            </td>
+
+                            <td align="left">
+                                <p>Project 7: textures</p>
+                                <a href="prj7.html" title="" target="_blank"><img src="prj7.jpg" alt="" style="border:3px solid #000000" /></a>
+                            </td>
+
+                            <td align="left">
+                                <p>Project 8: antialiasing</p>
+                                <a href="prj8.html" title="" target="_blank"><img src="prj8.jpg" alt="" style="border:3px solid #000000" /></a>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td align="left">
+                                <p>Project 9: depth of field</p>
+                                <a href="prj9.html" title="" target="_blank"><img src="prj9.jpg" alt="" style="border:3px solid #000000" /></a>
+                            </td>
+
+                            <td align="left">
+                                <p>Project 10: soft shadows and glossy surfaces</p>
+                                <a href="prj10.html" title="" target="_blank"><img src="prj10.jpg" alt="" style="border:3px solid #000000" /></a>
+                            </td>
+
+                            <td align="left">
+                                <p>Project 11: Monte Carlo GI</p>
+                                <a href="prj11.html" title="" target="_blank"><img src="prj11.jpg" alt="" style="border:3px solid #000000" /></a>
+                            </td>
+
+                            <td align="left">
+                                <p>Project 12: path tracer</p>
+                                <a href="prj12.html" title="" target="_blank"><img src="prj12.jpg" alt="" style="border:3px solid #000000" /></a>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td align="left">
+                                <p>Project 13: photon mapping</p>
+                                <a href="prj13.html" title="" target="_blank"><img src="prj13.jpg" alt="" style="border:3px solid #000000" /></a>
+                            </td>
+
+                            <td align="left">
+                                <p>Project 14: rendering contest</p>
+                                <a href="prj14.html" title="" target="_blank"><img src="prj14.jpg" alt="" style="border:3px solid #000000" /></a>
+                            </td>
+
+                            <td align="left">
+                                <p>2015 rendering contest</p>
+                                <a href="contest2015.html" title="" target="_blank"><img width="200" src="contest2015.jpg" alt="" style="border:3px solid #000000" /></a>
+                            </td>
+
+                            <td align="left">
+                                <p>2016 rendering contest</p>
+                                <a href="contest2016.html" title="" target="_blank"><img width="200" src="contest2016/christmas_teapots_9_200.jpg" alt="" style="border:3px solid #000000" /></a>
+                            </td>
+                        </tr>
+
+                    </table>
+
+                    <br />
+                    <br />
+                    <br />
+
+                    <p style="font-size:32px;">Models</p>
+                    <br />
+
+                    <a href="http://www.omnigraphica.com/files/models/dragon_cubic_UV.obj.zip">Stanford dragon</a>
+                    <br />
+                    <br />
+                    <a href="http://www.omnigraphica.com/files/models/bunny.obj.zip">Stanford bunny</a>
+                    <br />
+                    <br />
+                    <a href="http://www.omnigraphica.com/files/models/Lucy1M.obj.zip">Lucy, angel statue</a>
+                    <br />
+                    <br />
+                    <a href="http://www.omnigraphica.com/files/models/MotherChild.obj.zip">Mother/child</a>
+                    <br />
+                    <br />
+                    <a href="http://www.omnigraphica.com/files/models/teapot10.obj.zip">Utah teapot - low resolution</a>
+                    <br />
+                    <br />
+                    <a href="http://www.omnigraphica.com/files/models/teapot20.obj.zip">Utah teapot - medium resolution</a>
+                    <br />
+                    <br />
+                    <a href="http://www.omnigraphica.com/files/models/teapot50.obj.zip">Utah teapot - high resolution</a>
+
+                    <br />
+                    <br />
+                    <br />
+
+                    <p>Water-Tight Utah Teapots</p>
+                    <br />
+                    <a href="http://www.omnigraphica.com/files/models/wt_teapot_2016.obj.zip">WT-teapot with separate lid, 2016 edition, triangle mesh</a>
+                    <br />
+                    <br />
+                    <a href="http://www.omnigraphica.com/files/models/wt_teapot_2016_quad.obj.zip">WT-teapot with separate lid, 2016 edition, quad mesh</a>
+                    <br />
+                    <br />
+                    <a href="http://www.omnigraphica.com/files/models/teapot_contest_2015_low.obj.zip">Thin-walled teapot (fused lid)</a>
+                    <br />
+                    <br />
+                    <a href="http://www.omnigraphica.com/files/models/teapot_solid_partitioned.obj.zip">Solid teapot (fused lid)</a>
+                    <br />
+                    <br />
+                    <a href="http://www.omnigraphica.com/files/models/wt_teapot10.obj.zip">WT-teapot with separate lid</a>
+                    <br />
+
+
+
+                </div>
+            </div>
+        </div>
+        <!-- end content -->
+
+        <div style="clear: both;">&nbsp;</div>
+    </div>
+    <!-- end page -->
+    <!-- start footer -->
+
+    <!-- end footer -->
+</body>
+
+</html>

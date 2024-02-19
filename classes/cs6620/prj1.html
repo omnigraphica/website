@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>Project 1: ray casting</title>
+<meta name="keywords" content="" />
+<meta name="description" content="Utah CS6620: ray tracing for graphics." />
+<link media="screen" rel="stylesheet" href="../../common/colorbox/example1/colorbox.css" />
+<link href="default.css" rel="stylesheet" type="text/css" />
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-83300458-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+<script src="../../common/jquery/jquery-1.4.2.min.js" type="text/javascript"></script>
+<script src="../../common/colorbox/colorbox/jquery.colorbox-min.js" type="text/javascript"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+	//Examples of how to assign the ColorBox event to elements
+	$("a[rel='colorbox']").colorbox();
+	});
+</script>
+<style type="text/css">
+#page #content .post table {
+margin-left:35px;
+}
+</style>
+</head>
+<body>
+<!-- start header -->
+<div id="header">
+	<div id="logo">
+		<h1><a href="#">CS6620: Ray Tracing for Graphics<sup></sup></a></h1>
+		<h2>Laura Lediaev</h2>
+	</div>
+</div>
+<!-- end header -->
+<!-- start page -->
+<div id="page">
+	<!-- start content -->
+	<div id="content">
+		<div class="post">
+			<h2 class="title"><b>Project 1: ray casting</b></h2>
+			<div class="entry">
+
+<p>Hit / miss image. For this image we have a scene with three spheres, and we trace rays into the scene for each pixel and whenever we hit something we paint the pixel white, otherwise we paint it black.</p>
+<table width="880" border="0">
+  <tr>
+    <td align="center"><a href="prj1_image.png" rel="colorbox" title="Hit / miss Image"><img src="prj1_image.png" alt="Hit / miss Image" style="border:5px solid #8402CA"/></a></td>
+    
+  </tr>  
+</table>
+
+<br />
+<br/>
+
+<p>Normalized depth buffer, with the infinite (miss) color set to cyan. The closest depth color is white, and the farthest color is black.</p>
+
+<table width="880" border="0">
+  <tr>
+    <td align="center"><a href="prj1_zImage.png" rel="colorbox" title="Depth Buffer"><img src="prj1_zImage.png" alt="Depth Buffer" style="border:5px solid #8402CA"/></a></td>
+    
+  </tr>  
+</table>
+
+<br />
+On my Macbook Pro (2008) the runtime was anywhere from 140 ms to 585 ms, using a single thread @ 2.8 GHz. Using 2 threads the render times were between 100 ms and 300 ms.
+
+<br/>
+<br/>
+
+<p>Hit / miss image with 200 random samples per pixel, with color. Running time was 24 s using 2 threads @ 2.8 GHz.</p>
+
+<table width="880" border="0">
+  <tr>
+    <td align="center"><a href="prj1_image_multisample.png" rel="colorbox" title="Multisampled"><img src="prj1_image_multisample.png" alt="Multisampled" style="border:5px solid #8402CA"/></a></td>
+    
+  </tr>  
+</table>
+
+<br/>
+<br/>
+<a href="index.html" title=""> index</a>,&nbsp;&nbsp;
+<a href="prj2.html" title="" > next</a>,&nbsp;&nbsp;
+<a href="http://www.cemyuksel.com/courses/utah/cs6620/fall2014/" title="">CS6620 - Ray Tracing for Graphics</a>
+
+			</div>
+		</div>
+	</div>
+	<!-- end content -->
+
+	<div style="clear: both;">&nbsp;</div>
+</div>
+<!-- end page -->
+<!-- start footer -->
+
+<!-- end footer -->
+</body>
+</html>

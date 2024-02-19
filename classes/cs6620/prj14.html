@@ -1,0 +1,121 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>Project 14: Final Project - Utah teapot rendering contest</title>
+<meta name="keywords" content="" />
+<meta name="description" content="Utah CS6620: ray tracing for graphics." />
+<link media="screen" rel="stylesheet" href="../../common/colorbox/example1/colorbox.css" />
+<link href="default.css" rel="stylesheet" type="text/css" />
+<script src="../../common/jquery/jquery-1.4.2.min.js" type="text/javascript"></script>
+<script src="../../common/colorbox/colorbox/jquery.colorbox-min.js" type="text/javascript"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+	//Examples of how to assign the ColorBox event to elements
+	$("a[rel='colorbox']").colorbox();
+	});
+</script>
+<script src="../../common/analytics.js" type="text/javascript"></script>
+<style type="text/css">
+#page #content .post table {
+margin-left:35px;
+}
+</style>
+<script type="text/javascript" src="fsimage.js"></script>
+<style media="screen" type="text/css">
+
+</style>
+</head>
+<body onload='mixpanel.track("Omnigraphica Teapot Contest 2014")'>
+<!-- start header -->
+<div id="header">
+	<div id="logo">
+		<h1><a href="#">CS6620: Ray Tracing for Graphics<sup></sup></a></h1>
+		<h2>Laura Lediaev</h2>
+	</div>
+</div>
+<!-- end header -->
+<!-- start page -->
+<div id="page">
+	<!-- start content -->
+	<div id="content">
+		<div class="post">
+			<h2 class="title"><b>Project 14: final project</b></h2>
+			<div class="entry">
+			  
+              
+ <p>This is a fun scene with candy. There are two main componenets to this scene - the glass teapot, and the candies. I spent over 30 hours creating this teapot practically from scratch. I started with the Bezier patch description, which I used to create a quad mesh. I then went to work duplicating surfaces, shrinking them to create the inner surfaces, doing some boolean work for cutting out holes, then fusing together all the seams - vertex by vertex. I also added a shelf for the lid to sit on so it would be physically correct.</p>
+ 
+ <p>The candies started out as a single candy prototype which I sculpted starting from a cube. I then created a huge array of candy copies and used a dynamics simulation to drop the candies into one teapot, and onto the ground in front of the other teapot. The backdrop is just a ground with a single wall (a.k.a. an infinite plane). I have two area lights, and an environment image which is creating the beige color of the ground and some interesting reflections. The environment image is behind the camera, and it shows a city street at night with office buildings, street lamps, and a tree. Can you spot the reflection of the tree in the left teapot handle?</p>
+ 
+ <p> The challenge with rendering this scene is all the fully specular paths, which are rays that connect the camera to a light while only hitting specular surfaces such as glass or mirrors. The only way to do this using the rendering methods that we learned in the class is brute force path tracing which takes an extraordinary amount of time. Neither bidirectional path tracing nor photon mapping can do anything for this type of light contribution. To improve the rendering I would need to use a higher order method such as Metropolis Light Transport. With this scene I learned the hard way that it is a really bad idea to use saturated colors. After rendering I realized the image was overblown and impossible to fix with gamma correction because the rest of the scene would become dark. I had to restart the render with lowered color values (changing from 1.0 to 0.7), which made the image look much more realistic.</p> 
+ 
+ <p> This image has roughly 30,000 samples per pixel. It took almost 3 days to render, and I used almost 1,000 CPUs spread over several different clusters. The main feature of my raytracer that allowed me to use so many different computing nodes is the use of uniform random samples and incremental rendering. Each pixel would render a certain number of samples (usually 32), where the sample locations are randomly chosen within the 2D area of the pixel. After each loop of rendering the specified number of samples for all the pixels, the intermediate image is saved (for example, image_32.exr, image_64.exr, image_96.exr, etc.). Each separate computing cluster would save their version of the image, so one cluster might go through 20 loops, while a smaller cluster might only finish 5 loops during the same time. To get the composite image I would add the different images together, weighting them by their total number of samples. This reduces the noise considerably, and effectively it is as though only a single image had been rendering with the total combined number of samples. This is highly advantageous because there is no limit on the number of compute nodes that I can use, and there is no needed communication between the different nodes. This is different than breaking up the image and having each cluster render only part of the image. Each cluster rendered the entire image, but because the sampling locations are random, the different images can be combined. For anyone wanting to create a similar image, know that my raytracer was extremely inefficient so it is likely you would need less time and far fewer computing resources.</p> 
+ 
+ <p>For most of the scenes that I created during the class, I used a modeling program called Modo (by the Foundry), which allowed me to prototype the locations of objects, lights, and the camera settings. I believe it is absolutely necessary to know the basics of a 3D modeling program (Modo, Maya, Blender, 3DS Max, ...) for setting up scenes. After I was happy with a scene setup I would then export all of the models as OBJ files, and specify those in the scene file for my raytracer. I only used path tracing to create this image. The reason it looks so nice is because I spent a great deal of time and energy on creating the exact scene geometry, light locations, choosing a good environment map, and camera location. I would say that 90% of the effort was in creating the scene (the art), and only 10% for the renderer. It is far better to view scenes from an artistic perspective rather than the technical aspects of the renderer. Ultimately it is about art, not technical capabilities.</p>
+
+<table width="880" border="0">
+ <tr><td align="center"><a href="utah_teapot_candy_double.png" rel="colorbox" title="Candy"><img src="utah_teapot_candy.png" alt="Candy" style="border:1px solid #000000"/></a></td></tr>
+</table>
+
+              
+<br/>           
+<br/>
+<p>Here I added some teapots to the mother/child scene. I used path tracing with an area light and a night sky environment map.</p>
+<table width="880" border="0">
+ <tr><td align="center"><a href="contest_motherchild_double.jpg" rel="colorbox" title="Mother/Child"><img src="contest_motherchild.jpg" alt="Mother/Child" style="border:1px solid #000000"/></a></td></tr>
+</table>
+
+<br/>
+<p> This is the same image without caustics.</p>
+<table width="880" border="0">
+ 
+ <tr><td align="center"><a href="contest_motherchild_no_light_double.jpg" rel="colorbox" title="Mother/Child - No Caustics"><img src="contest_motherchild_no_light.jpg" alt="Mother/Child - No Caustics" style="border:1px solid #000000"/></a></td></tr>
+</table>
+
+
+<br/>
+<p> This image is made of three layers. With path tracing set up for use in bidirectional path tracing, I saved the contribution of each surface hit in its own vertex. The ray contribution to a pixel is then calculated after tracing it until it either exits the scene or runs out of allowed bounces. I kept track of each vertex's type of light contribution: caustics, environment light, or explicit light sampling from a diffuse surface. The caustics are converging too slowly. The images have 100,000 samples per pixel. It is obvious that path tracing isn't good enough to resolve the caustics. </p>
+
+<table width="880" border="0">
+ <tr><td align="center"><a href="contest_motherchild_light_double.jpg" rel="colorbox" title="Mother/Child - Caustics"><img src="contest_motherchild_light.jpg" alt="Mother/Child - Caustics" style="border:1px solid #000000"/></a></td></tr>
+ 
+ <tr><td align="center"><a href="contest_motherchild_environment_double.jpg" rel="colorbox" title="Mother/Child - Environment Light"><img src="contest_motherchild_environment.jpg" alt="Mother/Child - Environment Light" style="border:1px solid #000000"/></a></td></tr>
+ 
+ <tr><td align="center"><a href="contest_motherchild_explicit_double.jpg" rel="colorbox" title="Mother/Child - Explicit Light"><img src="contest_motherchild_explicit.jpg" alt="Mother/Child - Explicit Light" style="border:1px solid #000000"/></a></td></tr>
+
+</table>
+
+
+<br/>
+<br/>
+
+<p style="font-size:32px;">Models</p>
+<br />
+<a href="http://www.omnigraphica.com/files/models/wt_teapot10.obj.zip">WT-teapot with separate lid</a>
+<br />
+<br />
+<a href="http://www.omnigraphica.com/files/models/scene_candy.zip">Complete candy scene (180MB)</a>
+<br />
+<br />
+<br />
+<br />
+
+<a href="index.html" title=""> index</a>,&nbsp;&nbsp;
+<a href="prj13.html" title="" > previous</a>,&nbsp;&nbsp;
+<a href="contest2015.html" title="" > next</a>,&nbsp;&nbsp;
+<a href="http://www.cemyuksel.com/courses/utah/cs6620/fall2014/" title="">CS6620 - Ray Tracing for Graphics</a>
+
+			</div>
+		</div>
+	</div>
+	<!-- end content -->
+
+	<div style="clear: both;">&nbsp;</div>
+</div>
+<!-- end page -->
+<!-- start footer -->
+
+<!-- end footer -->
+</body>
+</html>
